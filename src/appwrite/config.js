@@ -1,5 +1,5 @@
 
-import { Client, Account, I, Databases, Storage, Query } from "appwrite";
+import { Client, Account, Databases, Storage, Query } from "appwrite";
 import conf from "../conf/conf";
 
 
@@ -12,7 +12,7 @@ class Service {
     constructor() {
 
         this.client
-            .setEndpoint(conf.appwriteUrl)
+            .setEndpoint(conf.appwriteURL)
             .setProject(conf.appwriteProjectId);
 
         this.databases = new Databases(this.client);
