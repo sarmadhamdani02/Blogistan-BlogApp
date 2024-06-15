@@ -1,6 +1,7 @@
 
 import { Client, Account, I, Databases, Storage, Query } from "appwrite";
-import conf from "../../../conf/conf.js";
+import conf from "../conf/conf";
+
 
 class Service {
 
