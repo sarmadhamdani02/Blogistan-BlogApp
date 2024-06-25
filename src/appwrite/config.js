@@ -106,7 +106,7 @@ class Service {
 
 
         } catch (error) {
-            console.log(`config.js :: getPosts() :: error ❌ : ${error}`);
+            console.log(`config.js :: getPost() :: error ❌ : ${error}`);
             return false;
         }
     }
