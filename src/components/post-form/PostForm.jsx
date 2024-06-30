@@ -1,3 +1,5 @@
+// PostForm.jsx
+
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
@@ -18,34 +20,60 @@ export default function PostForm({ post }) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
 
+    console.log("userData in PostForm:", userData); // Log userData to check its structure and if $id exists
+
     const submit = async (data) => {
-        if (post) {
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+        try {
+            if (post) {
+                let file = null;
+                if (data.image && data.image[0]) {
+                    file = await appwriteService.uploadFile(data.image[0]);
+                    console.log("File after upload:", file);
+                }
 
-            if (file) {
-                appwriteService.deleteFile(post.featuredImage);
-            }
+                if (file) {
+                    await appwriteService.deleteFile(post.featuredImage);
+                }
 
-            const dbPost = await appwriteService.updatePost(post.$id, {
-                ...data,
-                featuredImage: file ? file.$id : undefined,
-            });
+                const updateData = {
+                    ...data,
+                    featuredImage: file ? file.$id : post.featuredImage,
+                };
+                console.log("Data for updating post:", updateData);
 
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`);
-            }
-        } else {
-            const file = await appwriteService.uploadFile(data.image[0]);
-
-            if (file) {
-                const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+                const dbPost = await appwriteService.updatePost(post.$id, updateData);
+                console.log("Updated post response:", dbPost);
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
+            } else {
+                let file = null;
+                if (data.image && data.image[0]) {
+                    file = await appwriteService.uploadFile(data.image[0]);
+                    console.log("File after upload:", file);
+                }
+
+                if (file) {
+                    const fileId = file.$id;
+                    data.featuredImage = fileId;
+                    const createData = {
+                        ...data,
+                        userId: userData.$id,
+                    };
+                    console.log("Data for creating post:", createData);
+
+                    const dbPost = await appwriteService.createPost(createData);
+                    console.log("Created post response:", dbPost);
+
+                    if (dbPost) {
+                        navigate(`/post/${dbPost.$id}`);
+                    }
+                }
             }
+        } catch (error) {
+            console.error("Error in submit function:", error);
+            // Handle error appropriately, such as displaying an error message
         }
     };
 
