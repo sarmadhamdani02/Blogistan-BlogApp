@@ -61,7 +61,8 @@ export default function PostForm({ post }) {
                         ...data,
                         userId: userData.$id,
                     };
-                    console.log("Data for creating post:", createData);
+                    console.log("Data for creating post:", createData); // {content fi image slug statue title userId}
+                    console.log("Content Type", typeof(createData.content)); // {content fi image slug statue title userId}
 
                     const dbPost = await appwriteService.createPost(createData);
                     console.log("Created post response:", dbPost);
