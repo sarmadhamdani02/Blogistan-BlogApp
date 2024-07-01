@@ -14,7 +14,7 @@ function Footer() {
               </div>
               <div>
                 <p className="text-sm text-white  ">
-                  &copy; Copyright 2023. All Rights Reserved by DevUI.
+                  &copy; Copyright 2024. This app is developed by <a className=" underline hover:text-[#efd404]" href="https://www.linkedin.com/in/shah-sarmad-hamdani-a0b59b249/" target="_blank" >Shah Sarmad Hamdani</a>
                 </p>
               </div>
             </div>

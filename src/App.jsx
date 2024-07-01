@@ -39,7 +39,7 @@ function App() {
       <div>
         <Header />
       </div>
-      <div className="main">
+      <div className="main min-h-[80vh]">
         <Outlet/>
       </div>
       <div>
