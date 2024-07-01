@@ -35,7 +35,7 @@ function App() {
   }
 
   return (
-    <div className="bg-cyan-400 h-screen w-screen">
+    <div className="bg-white h-screen w-screen">
       <div>
         <Header />
       </div>

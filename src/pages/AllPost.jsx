@@ -3,26 +3,36 @@ import { Container, PostCard } from "../components";
 import appwriteService from "../appwrite/config";
 
 const AllPost = () => {
-  const [post, setPost] = useState([]);
-  useEffect(() => {}, []);
+  const [posts, setPosts] = useState([]);
 
-  appwriteService.getPost([]).then((posts) => {
-    if (posts) {
-      setPost(posts.documents);
-    }
-  });
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const postsData = await appwriteService.getPosts();
+        if (postsData) {
+          setPosts(postsData.documents);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
 
-  <div className="w-full py-8">
-    <Container>
-      <div className="flex flex-wrap">
-        {post.map((post) => (
-          <div key={post.$id} className="p-2 w-1/4">
-            <PostCard {...post} />
-          </div>
-        ))}
-      </div>
-    </Container>
-  </div>;
+    fetchPosts();
+  }, []);
+
+  return (
+    <div className="w-full py-8">
+      <Container>
+        <div className="flex flex-wrap gap-10">
+          {posts.map((post) => (
+            <div key={post.$id} className="p-2 w-1/4">
+              <PostCard {...post} />
+            </div>
+          ))}
+        </div>
+      </Container>
+    </div>
+  );
 };
 
 export default AllPost;

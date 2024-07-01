@@ -29,7 +29,7 @@ function Signup() {
   return (
     <div className="flex items-center justify-center">
       <div
-        className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
+        className={`mx-auto w-full max-w-lg rounded-xl p-10 border border-black/10 bg-[#734af6] text-white`}
       >
         <div className="mb-2 flex justify-center">
           <span className="inline-block w-full max-w-[100px]">
@@ -80,7 +80,7 @@ function Signup() {
                 required: true,
               })}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-transparent border border-white hover:bg-white hover:text-[#734af6] transition">
               Create Account
             </Button>
           </div>
