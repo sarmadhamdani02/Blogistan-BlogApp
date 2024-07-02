@@ -36,15 +36,19 @@
             }
         }
 
-        async getCurrentUser() {
+        getCurrentUser = async () => {
             try {
-                return await this.account.get();
+              const userUrl = 'https://cloud.appwrite.io/v1/account'; // Example URL
+              console.log('User URL:', userUrl); // Log the URL before using it
+              const response = await fetch(userUrl);
+              const userData = await response.json();
+              return userData;
             } catch (error) {
-                console.log("Appwrite serive :: getCurrentUser :: error", error);
+              console.error('Error fetching user data:', error);
+              throw error;
             }
-
-            return null;
-        }
+          };
+          
 
         async logout() {
 
