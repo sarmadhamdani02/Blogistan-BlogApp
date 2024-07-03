@@ -22,7 +22,7 @@ export class Service {
         slug,
         {
           title,
-          userID: userId,
+          userID: userId, 
           content,
           featuredImage,
           status,

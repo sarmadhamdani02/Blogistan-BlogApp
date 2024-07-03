@@ -18,12 +18,24 @@ export default function PostForm({ post }) {
     });
 
     const navigate = useNavigate();
-    const userData = useSelector((state) => state.auth.userData);
+    const userData = useSelector((state) => {
+
+        console.log("state", state)
+        console.log("state.auth", state.auth)
+        // console.log("state", state)
+        
+        return state.auth.userData
+        
+    });
+
+    
 
     console.log("userData in PostForm:", userData); // Log userData to check its structure and if $id exists
 
     const submit = async (data) => {
         try {
+
+            console.log("Loading...");
             
             if (post) {
                 let file = null;
@@ -72,6 +84,8 @@ export default function PostForm({ post }) {
                         navigate(`/post/${dbPost.$id}`);
                     }
                 }
+            console.log("Uploaded");
+
             }
         } catch (error) {
             console.error("Error in submit function:", error);
@@ -144,7 +158,7 @@ export default function PostForm({ post }) {
                     {...register("status", { required: true })}
                 />
                 <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
-                    {post ? "Upload" : "Submit"}
+                    {post ? "Update" : "Upload"}
                 </Button>
             </div>
         </form>
